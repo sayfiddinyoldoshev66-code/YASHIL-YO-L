@@ -12,6 +12,7 @@ tarmog'i uchun bir sahifali mahsulot sayti. PDP Academy bitiruv loyihasi.
 | `cv.html` | Bitiruv uchun CV (A4, chop etishga tayyor) |
 | `slaydlar.html` | Himoya uchun 10 slaydli taqdimot (`←` `→` bilan o'tish, `P` — chop etish) |
 | `himoya-tayyorgarlik.md` | 10 daqiqalik nutq matni, demo ketma-ketligi, savol-javob tayyorgarligi |
+| `linkedin-hh.md` | LinkedIn va HeadHunter uchun tayyor profil matnlari |
 
 ## Sahifa tuzilmasi
 

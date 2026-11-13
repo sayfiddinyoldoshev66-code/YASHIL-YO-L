@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nexus Studio — Raqamli yechimlar</title>
+<meta name="description" content="Nexus Studio — veb-saytlar, mobil ilovalar va brending bo'yicha zamonaviy raqamli studiya." />
+<style>
+  :root {
+    --bg: #0a0c14;
+    --bg-soft: #11141f;
+    --card: rgba(255, 255, 255, 0.04);
+    --card-border: rgba(255, 255, 255, 0.09);
+    --text: #eef1f8;
+    --muted: #9aa3b8;
+    --accent: #6c5ce7;
+    --accent-2: #00d2c6;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    --radius: 18px;
+  }
+
+  html[data-theme="light"] {
+    --bg: #f6f7fb;
+    --bg-soft: #ffffff;
+    --card: rgba(12, 16, 30, 0.03);
+    --card-border: rgba(12, 16, 30, 0.09);
+    --text: #14182a;
+    --muted: #5b6478;
+    --shadow: 0 18px 45px rgba(20, 24, 42, 0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Segoe UI", Inter, system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background .35s ease, color .35s ease;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -20% -10% auto -10%;
+    height: 60vh;
+    background:
+      radial-gradient(closest-side at 25% 30%, rgba(108, 92, 231, .35), transparent 70%),
+      radial-gradient(closest-side at 75% 20%, rgba(0, 210, 198, .22), transparent 70%);
+    filter: blur(20px);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  .wrap { width: min(1160px, 92vw); margin-inline: auto; }
+
+  /* ---------- Navbar ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s ease, background .3s ease;
+  }
+  header.scrolled { border-bottom-color: var(--card-border); }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .logo { display: flex; align-items: center; gap: .6rem; font-weight: 800; letter-spacing: -.02em; font-size: 1.15rem; }
+  .logo-mark {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: grid; place-items: center; font-size: .95rem; color: #fff; font-weight: 900;
+    box-shadow: 0 8px 24px rgba(108, 92, 231, .45);
+  }
+
+  .nav-links { display: flex; gap: 1.6rem; align-items: center; }
+  .nav-links a { color: var(--muted); font-size: .95rem; font-weight: 500; transition: color .2s ease; }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-actions { display: flex; align-items: center; gap: .7rem; }
+
+  /* Mobilda menyu ichida chiqadi, desktop'da faqat o'ng tomondagi tugma ko'rinadi */
+  .nav-links .btn { display: none; }
+
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: 12px; cursor: pointer;
+    border: 1px solid var(--card-border);
+    background: var(--card); color: var(--text);
+    display: grid; place-items: center; font-size: 1rem;
+    transition: transform .2s ease, background .2s ease;
+  }
+  .icon-btn:hover { transform: translateY(-2px); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    padding: .78rem 1.35rem; border-radius: 999px;
+    font-weight: 600; font-size: .95rem; cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform .2s ease, box-shadow .25s ease, background .2s ease;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff;
+    box-shadow: 0 12px 30px rgba(108, 92, 231, .38);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 38px rgba(108, 92, 231, .5); }
+  .btn-ghost { border-color: var(--card-border); background: var(--card); color: var(--text); }
+  .btn-ghost:hover { transform: translateY(-2px); }
+
+  .burger { display: none; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: clamp(3.5rem, 9vw, 7rem) 0 4rem; }
+
+  .pill {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .4rem .85rem; border-radius: 999px;
+    border: 1px solid var(--card-border); background: var(--card);
+    color: var(--muted); font-size: .82rem; font-weight: 600;
+    margin-bottom: 1.4rem;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 0 4px rgba(0,210,198,.15); }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 6vw, 4.1rem);
+    line-height: 1.06;
+    letter-spacing: -.035em;
+    font-weight: 850;
+    max-width: 20ch;
+  }
+  .grad {
+    background: linear-gradient(120deg, var(--accent), var(--accent-2) 70%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  .hero p.lead {
+    color: var(--muted); font-size: clamp(1rem, 2.2vw, 1.15rem);
+    max-width: 56ch; margin-top: 1.3rem;
+  }
+
+  .hero-cta { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 2.1rem; }
+
+  .hero-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 3rem; align-items: center; }
+
+  .visual {
+    position: relative;
+    border-radius: 26px;
+    border: 1px solid var(--card-border);
+    background: linear-gradient(160deg, var(--card), transparent);
+    padding: 1.1rem;
+    box-shadow: var(--shadow);
+    animation: float 7s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+
+  .visual-bar { display: flex; gap: .45rem; margin-bottom: .9rem; }
+  .visual-bar span { width: 10px; height: 10px; border-radius: 50%; background: var(--card-border); }
+
+  .code {
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    font-size: .84rem; line-height: 1.75; color: var(--muted);
+  }
+  .code b { color: var(--accent-2); font-weight: 600; }
+  .code i { color: var(--accent); font-style: normal; }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1rem; margin-top: 3.5rem;
+    padding-top: 2rem; border-top: 1px solid var(--card-border);
+  }
+  .stat b { display: block; font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 850; letter-spacing: -.03em; }
+  .stat span { color: var(--muted); font-size: .88rem; }
+
+  /* ---------- Sections ---------- */
+  section { padding: clamp(3rem, 8vw, 6rem) 0; }
+
+  .section-head { max-width: 62ch; margin-bottom: 2.6rem; }
+  .eyebrow {
+    text-transform: uppercase; letter-spacing: .18em;
+    font-size: .74rem; font-weight: 700; color: var(--accent-2);
+    margin-bottom: .7rem;
+  }
+  h2 { font-size: clamp(1.7rem, 4.2vw, 2.6rem); letter-spacing: -.03em; line-height: 1.15; font-weight: 820; }
+  .section-head p { color: var(--muted); margin-top: .9rem; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.1rem; }
+
+  .card {
+    border: 1px solid var(--card-border);
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+    transition: transform .28s ease, border-color .28s ease, background .28s ease;
+  }
+  .card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--accent) 45%, var(--card-border)); }
+
+  .card-icon {
+    width: 46px; height: 46px; border-radius: 14px;
+    display: grid; place-items: center; font-size: 1.25rem;
+    background: linear-gradient(135deg, rgba(108,92,231,.22), rgba(0,210,198,.16));
+    border: 1px solid var(--card-border);
+    margin-bottom: 1rem;
+  }
+  .card h3 { font-size: 1.08rem; margin-bottom: .5rem; letter-spacing: -.01em; }
+  .card p { color: var(--muted); font-size: .93rem; }
+  .card ul { list-style: none; margin-top: .9rem; display: grid; gap: .45rem; }
+  .card ul li { color: var(--muted); font-size: .88rem; padding-left: 1.35rem; position: relative; }
+  .card ul li::before { content: "✓"; position: absolute; left: 0; color: var(--accent-2); font-weight: 800; }
+
+  /* ---------- Pricing ---------- */
+  .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1.1rem; align-items: stretch; }
+  .price {
+    border: 1px solid var(--card-border); background: var(--card);
+    border-radius: var(--radius); padding: 1.8rem;
+    display: flex; flex-direction: column;
+    transition: transform .28s ease, box-shadow .28s ease;
+  }
+  .price:hover { transform: translateY(-6px); }
+  .price.featured {
+    border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+    background: linear-gradient(170deg, rgba(108,92,231,.14), var(--card));
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .badge {
+    position: absolute; top: -12px; left: 1.8rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff; font-size: .72rem; font-weight: 700;
+    padding: .28rem .7rem; border-radius: 999px;
+  }
+  .price h3 { font-size: 1rem; color: var(--muted); font-weight: 600; }
+  .amount { font-size: 2.3rem; font-weight: 850; letter-spacing: -.04em; margin: .5rem 0 .2rem; }
+  .amount small { font-size: .85rem; color: var(--muted); font-weight: 500; }
+  .price ul { list-style: none; display: grid; gap: .6rem; margin: 1.3rem 0 1.7rem; }
+  .price ul li { font-size: .9rem; color: var(--muted); padding-left: 1.4rem; position: relative; }
+  .price ul li::before { content: "→"; position: absolute; left: 0; color: var(--accent-2); }
+  .price .btn { margin-top: auto; width: 100%; }
+
+  /* ---------- Contact ---------- */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+  .info-row { display: flex; gap: .9rem; align-items: flex-start; margin-bottom: 1.2rem; }
+  .info-row span:first-child {
+    width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
+    background: var(--card); border: 1px solid var(--card-border); flex-shrink: 0;
+  }
+  .info-row b { display: block; font-size: .95rem; }
+  .info-row small { color: var(--muted); }
+
+  form {
+    border: 1px solid var(--card-border); background: var(--card);
+    border-radius: var(--radius); padding: 1.7rem;
+    display: grid; gap: .9rem;
+  }
+  label { font-size: .82rem; font-weight: 600; color: var(--muted); }
+  input, textarea {
+    width: 100%; margin-top: .35rem;
+    padding: .8rem .95rem; border-radius: 12px;
+    border: 1px solid var(--card-border);
+    background: color-mix(in srgb, var(--bg) 60%, transparent);
+    color: var(--text); font: inherit; font-size: .93rem;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  input:focus, textarea:focus {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, .16);
+  }
+  textarea { resize: vertical; min-height: 110px; }
+  .form-note { font-size: .82rem; color: var(--muted); min-height: 1.2rem; }
+  .form-note.ok { color: var(--accent-2); }
+  .form-note.err { color: #ff6b81; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--card-border);
+    padding: 2.2rem 0;
+    color: var(--muted); font-size: .88rem;
+  }
+  .foot {
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    align-items: center; justify-content: space-between;
+  }
+  .foot nav { display: flex; gap: 1.3rem; flex-wrap: wrap; }
+  .foot nav a:hover { color: var(--text); }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .hero-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.2rem; }
+    .hero h1 { max-width: none; }
+  }
+
+  @media (max-width: 760px) {
+    .burger { display: grid; }
+    .nav-links {
+      position: absolute; inset: 100% 0 auto 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      background: var(--bg-soft);
+      border-bottom: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      padding: .5rem 4vw 1.2rem;
+      display: none;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: .85rem 0; border-bottom: 1px solid var(--card-border); }
+    .nav-links .btn { display: inline-flex; margin-top: 1rem; }
+    .nav-actions .btn-primary { display: none; }
+    .stats { grid-template-columns: 1fr; gap: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<header id="topbar">
+  <div class="wrap nav">
+    <a class="logo" href="#top">
+      <span class="logo-mark">N</span>
+      <span>Nexus<span style="color:var(--muted);font-weight:500"> Studio</span></span>
+    </a>
+
+    <nav class="nav-links" id="menu">
+      <a href="#xizmatlar">Xizmatlar</a>
+      <a href="#narxlar">Narxlar</a>
+      <a href="#aloqa">Aloqa</a>
+      <a class="btn btn-primary" href="#aloqa">Bog'lanish</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Mavzuni almashtirish" title="Kunduzgi / Tungi rejim">🌙</button>
+      <a class="btn btn-primary" href="#aloqa">Bog'lanish</a>
+      <button class="icon-btn burger" id="burger" aria-label="Menyu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="pill"><span class="dot"></span> Yangi loyihalar uchun joy mavjud</span>
+        <h1>Sizning g'oyangizni <span class="grad">raqamli mahsulotga</span> aylantiramiz</h1>
+        <p class="lead">
+          Nexus Studio — veb-saytlar, mobil ilovalar va brending bo'yicha to'liq xizmat ko'rsatuvchi
+          studiya. Dizayndan tortib ishga tushirishgacha — hammasi bir joyda, tez va ishonchli.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#aloqa">Bepul maslahat olish</a>
+          <a class="btn btn-ghost" href="#xizmatlar">Ishlarimizni ko'rish</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><b>120+</b><span>Yakunlangan loyiha</span></div>
+          <div class="stat"><b>98%</b><span>Mamnun mijozlar</span></div>
+          <div class="stat"><b>7 kun</b><span>O'rtacha ishlab chiqish</span></div>
+        </div>
+      </div>
+
+      <div class="visual" aria-hidden="true">
+        <div class="visual-bar"><span></span><span></span><span></span></div>
+        <pre class="code"><i>const</i> <b>loyiha</b> = {
+  mijoz: <i>"Siz"</i>,
+  turi: <i>"veb + mobil"</i>,
+  muddat: <i>"7 kun"</i>,
+  natija: <i>"o'sish"</i>
+};
+
+<b>deploy</b>(loyiha) <i>→</i> ✅ muvaffaqiyat</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- XIZMATLAR -->
+  <section id="xizmatlar">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Xizmatlar</div>
+        <h2>Nima qilamiz?</h2>
+        <p>G'oyadan tayyor mahsulotgacha bo'lgan barcha bosqichlarni o'zimiz bajaramiz — siz faqat natijani ko'rasiz.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal">
+          <div class="card-icon">💻</div>
+          <h3>Veb-sayt yaratish</h3>
+          <p>Tez yuklanadigan, mobilga moslashgan va qidiruv tizimlarida yuqori o'rin oladigan saytlar.</p>
+          <ul><li>Landing va korporativ saytlar</li><li>Onlayn-do'kon va CRM</li><li>SEO optimizatsiya</li></ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon">📱</div>
+          <h3>Mobil ilovalar</h3>
+          <p>iOS va Android uchun bitta kod bazasidan ishlaydigan zamonaviy ilovalar.</p>
+          <ul><li>React Native / Flutter</li><li>To'lov tizimlari integratsiyasi</li><li>Push-bildirishnomalar</li></ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon">🎨</div>
+          <h3>Brending va dizayn</h3>
+          <p>Logotip, korporativ uslub va interfeys dizayni — brendingizni esda qolarli qilamiz.</p>
+          <ul><li>Logotip va brandbook</li><li>UI/UX dizayn</li><li>SMM uchun grafikalar</li></ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon">⚙️</div>
+          <h3>Texnik qo'llab-quvvatlash</h3>
+          <p>Sayt yoki ilovangiz uzluksiz ishlashi uchun doimiy monitoring va yangilanishlar.</p>
+          <ul><li>Xosting va domen sozlash</li><li>Xavfsizlik va zaxira nusxa</li><li>Tezkor yordam 24/7</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- NARXLAR -->
+  <section id="narxlar">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Narxlar</div>
+        <h2>Ochiq va tushunarli tariflar</h2>
+        <p>Yashirin to'lovlar yo'q. Loyiha hajmiga qarab har bir tarifni moslashtirishimiz mumkin.</p>
+      </div>
+
+      <div class="price-grid">
+        <div class="price reveal">
+          <h3>Start</h3>
+          <div class="amount">1.5 mln <small>so'mdan</small></div>
+          <ul>
+            <li>1 sahifali landing</li>
+            <li>Mobil moslashuv</li>
+            <li>Aloqa formasi</li>
+            <li>5 kun ichida tayyor</li>
+          </ul>
+          <a class="btn btn-ghost" href="#aloqa">Tanlash</a>
+        </div>
+
+        <div class="price featured reveal">
+          <span class="badge">Eng mashhur</span>
+          <h3>Biznes</h3>
+          <div class="amount">4.9 mln <small>so'mdan</small></div>
+          <ul>
+            <li>5–10 sahifali sayt</li>
+            <li>Admin panel (CMS)</li>
+            <li>SEO asoslari</li>
+            <li>1 yillik texnik yordam</li>
+          </ul>
+          <a class="btn btn-primary" href="#aloqa">Tanlash</a>
+        </div>
+
+        <div class="price reveal">
+          <h3>Premium</h3>
+          <div class="amount">Kelishiladi</div>
+          <ul>
+            <li>Veb + mobil ilova</li>
+            <li>To'lov tizimlari</li>
+            <li>Shaxsiy dizayn tizimi</li>
+            <li>Doimiy jamoa biriktiriladi</li>
+          </ul>
+          <a class="btn btn-ghost" href="#aloqa">Bog'lanish</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALOQA -->
+  <section id="aloqa">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Aloqa</div>
+        <h2>Loyihangizni boshlaymizmi?</h2>
+        <p>Formani to'ldiring — 24 soat ichida siz bilan bog'lanamiz va bepul konsultatsiya o'tkazamiz.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="reveal">
+          <div class="info-row">
+            <span>📞</span>
+            <div><b>Telefon</b><small>+998 90 123 45 67</small></div>
+          </div>
+          <div class="info-row">
+            <span>✉️</span>
+            <div><b>Email</b><small>salom@nexus.studio</small></div>
+          </div>
+          <div class="info-row">
+            <span>📍</span>
+            <div><b>Manzil</b><small>Toshkent, Amir Temur shoh ko'chasi 108</small></div>
+          </div>
+          <div class="info-row">
+            <span>🕒</span>
+            <div><b>Ish vaqti</b><small>Dushanba–Shanba, 09:00–19:00</small></div>
+          </div>
+        </div>
+
+        <form id="contactForm" class="reveal" novalidate>
+          <div>
+            <label for="ism">Ismingiz</label>
+            <input id="ism" name="ism" type="text" placeholder="Aziz Karimov" required />
+          </div>
+          <div>
+            <label for="email">Email yoki telefon</label>
+            <input id="email" name="email" type="text" placeholder="aziz@mail.uz" required />
+          </div>
+          <div>
+            <label for="xabar">Loyiha haqida</label>
+            <textarea id="xabar" name="xabar" placeholder="Qanday sayt yoki ilova kerak?"></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Xabar yuborish</button>
+          <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year"></span> Nexus Studio. Barcha huquqlar himoyalangan.</span>
+    <nav>
+      <a href="#xizmatlar">Xizmatlar</a>
+      <a href="#narxlar">Narxlar</a>
+      <a href="#aloqa">Aloqa</a>
+      <a href="#top">Yuqoriga ↑</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // Yil
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Navbar soyasi
+  const header = document.getElementById('topbar');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Mobil menyu
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('menu');
+  burger.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    burger.textContent = open ? '✕' : '☰';
+  });
+  menu.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') {
+      menu.classList.remove('open');
+      burger.textContent = '☰';
+      burger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Mavzu
+  const themeBtn = document.getElementById('themeBtn');
+  const root = document.documentElement;
+  const setTheme = (t) => {
+    root.setAttribute('data-theme', t);
+    themeBtn.textContent = t === 'dark' ? '🌙' : '☀️';
+    try { localStorage.setItem('nexus-theme', t); } catch (_) {}
+  };
+  let saved = 'dark';
+  try { saved = localStorage.getItem('nexus-theme') || 'dark'; } catch (_) {}
+  setTheme(saved);
+  themeBtn.addEventListener('click', () => {
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  // Scroll animatsiya
+  const items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.15 });
+    items.forEach((el, i) => { el.style.transitionDelay = (i % 4) * 70 + 'ms'; io.observe(el); });
+  } else {
+    items.forEach((el) => el.classList.add('in'));
+  }
+
+  // Forma
+  const form = document.getElementById('contactForm');
+  const note = document.getElementById('formNote');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const ism = form.ism.value.trim();
+    const email = form.email.value.trim();
+    note.className = 'form-note';
+    if (ism.length < 2) { note.textContent = 'Iltimos, ismingizni kiriting.'; note.classList.add('err'); return; }
+    if (email.length < 5) { note.textContent = 'Aloqa uchun email yoki telefon kiriting.'; note.classList.add('err'); return; }
+    note.textContent = 'Rahmat, ' + ism + '! Xabaringiz qabul qilindi ✅';
+    note.classList.add('ok');
+    form.reset();
+  });
+</script>
+</body>
+</html>

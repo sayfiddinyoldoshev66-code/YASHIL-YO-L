@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV — Frontend dasturchi</title>
+<style>
+  /* ATS-friendly: bitta ustun, jadvalsiz, oddiy shrift, tanlanadigan matn */
+  @page { size: A4; margin: 14mm 15mm; }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { background: #e9eaee; }
+
+  body {
+    margin: 0;
+    padding: 24px 16px 48px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: #1a1a1a;
+    background: #e9eaee;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 14mm 15mm;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+  }
+
+  /* ---------- Sarlavha ---------- */
+  .name {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1.15;
+    letter-spacing: .3px;
+    text-transform: uppercase;
+  }
+
+  .role {
+    margin: 4px 0 0;
+    font-size: 12.5px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .contact {
+    margin: 8px 0 0;
+    font-size: 11px;
+    color: #333;
+  }
+
+  .contact span { white-space: nowrap; }
+
+  .contact .sep {
+    color: #999;
+    margin: 0 6px;
+  }
+
+  .rule {
+    margin: 12px 0 0;
+    border: 0;
+    border-top: 1.5px solid #1a1a1a;
+  }
+
+  /* ---------- Bo'limlar ---------- */
+  section { margin-top: 14px; }
+
+  h2 {
+    margin: 0 0 6px;
+    font-size: 11px;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    color: #000;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #c9ccd4;
+  }
+
+  p { margin: 0; }
+
+  ul {
+    margin: 0;
+    padding-left: 16px;
+  }
+
+  li { margin: 0 0 2.5px; }
+
+  li::marker { color: #777; }
+
+  /* ---------- Tajriba / loyiha bloklari ---------- */
+  .item { margin-bottom: 10px; }
+  .item:last-child { margin-bottom: 0; }
+
+  .item-head {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .item-title {
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .item-sub {
+    display: block;
+    font-size: 11px;
+    color: #4a4a4a;
+    font-style: italic;
+  }
+
+  .item-meta {
+    display: block;
+    font-size: 10.5px;
+    color: #555;
+  }
+
+  .kv { margin: 0; }
+
+  .kv b { font-weight: bold; }
+
+  /* ---------- Ko'nikmalar ro'yxati ---------- */
+  .skills li { margin-bottom: 3px; }
+
+  /* ---------- Chop etish ---------- */
+  .hint {
+    max-width: 210mm;
+    margin: 0 auto 14px;
+    font-size: 12px;
+    color: #555;
+    text-align: center;
+  }
+
+  @media print {
+    html, body { background: #fff; }
+    body { padding: 0; font-size: 11px; }
+    .page {
+      width: auto;
+      min-height: 0;
+      margin: 0;
+      padding: 0;
+      box-shadow: none;
+    }
+    .hint { display: none; }
+    section { break-inside: avoid; }
+    .item { break-inside: avoid; }
+  }
+
+  @media (max-width: 780px) {
+    .page { width: 100%; min-height: 0; padding: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<p class="hint">Chop etish uchun <b>Ctrl + P</b> → “Save as PDF” (A4, standart chetlash).</p>
+
+<div class="page">
+
+  <!-- ================= SARLAVHA ================= -->
+  <header>
+    <h1 class="name">[ISM FAMILIYA]</h1>
+    <p class="role">Frontend dasturchi (Junior) — HTML, CSS, JavaScript</p>
+    <p class="contact">
+      <span>[Shahar], O‘zbekiston</span><span class="sep">|</span>
+      <span>+998 [__] ___ __ __</span><span class="sep">|</span>
+      <span>[email@example.com]</span><br>
+      <span>LinkedIn: linkedin.com/in/[profil]</span><span class="sep">|</span>
+      <span>Portfolio / GitHub: [havola]</span>
+    </p>
+    <hr class="rule">
+  </header>
+
+  <!-- ================= PROFIL ================= -->
+  <section>
+    <h2>Profil</h2>
+    <p>
+      PDP Academy bitiruvchisi, frontend dasturlash yo‘nalishi. Semantik HTML, zamonaviy CSS va
+      tashqi kutubxonalarsiz “vanilla” JavaScript asosida moslashuvchan (responsive) interfeyslar
+      yarataman. Bitiruv loyihasi — <b>YashilYo‘l</b>: Toshkentda QR orqali mikrotransport ijarasi
+      uchun to‘liq ishlaydigan bir sahifali mahsulot sayti. Interaktiv vizualizatsiya, narx
+      kalkulyatori va moliyaviy modelni o‘z ichiga oladi. Maqsad: mahsulot mantig‘ini tushunadigan
+      va uni ish beruvchiga tushuntira oladigan frontend dasturchi bo‘lib ishlash.
+    </p>
+  </section>
+
+  <!-- ================= KO'NIKMALAR ================= -->
+  <section>
+    <h2>Texnik ko‘nikmalar</h2>
+    <ul class="skills">
+      <li><b>HTML5:</b> semantik markup, form elementlari, ARIA atributlari, meta/SEO teglari</li>
+      <li><b>CSS3:</b> Flexbox, CSS Grid, custom properties (o‘zgaruvchilar), media queries, animatsiya va transition</li>
+      <li><b>JavaScript (ES6+):</b> DOM bilan ishlash, hodisalar (event delegation), funksiyalar va IIFE, shablon satrlari, <code>Intl.NumberFormat</code>, <code>IntersectionObserver</code></li>
+      <li><b>Dizayn:</b> Figma asosida maketni kodga o‘tkazish, responsive layout, tipografika va rang tizimi</li>
+      <li><b>Vositalar:</b> Git va GitHub, VS Code, brauzer DevTools, Lighthouse audit, cross-browser tekshiruv</li>
+      <li><b>Asoslar:</b> sahifa arxitekturasi, kodni bo‘limlarga ajratish, ishlash tezligi va mavjudlik (accessibility)</li>
+    </ul>
+  </section>
+
+  <!-- ================= LOYIHALAR ================= -->
+  <section>
+    <h2>Loyihalar</h2>
+
+    <div class="item">
+      <span class="item-head">
+        <span class="item-title">YashilYo‘l — QR orqali mikrotransport ijarasi (bitiruv loyihasi)</span>
+        <span class="item-meta">Bir sahifali mahsulot sayti · HTML, CSS, JavaScript · 2026</span>
+      </span>
+      <ul>
+        <li>Muammo va yechimni ketma-ket ochib beruvchi 11 bo‘limli sahifa: muammo, yechim, tarmoq, ilova, tariflar, moliya, xavfsizlik, rivojlanish rejasi, FAQ va chaqiruv bloki.</li>
+        <li>Foydalanuvchi qadamlarini ko‘rsatuvchi <b>interaktiv stansiya xaritasi</b>: dot-matrix to‘rini JavaScript bilan dinamik qurish, stansiya ustiga kelganda bo‘sh transportlar sonini ko‘rsatish.</li>
+        <li><b>Narx kalkulyatori:</b> masofa slayderi asosida sayohat vaqti va narxni hisoblash, taksiga nisbatan tejamkorlikni jonli ko‘rsatish, raqamlarni <code>Intl.NumberFormat</code> bilan formatlash.</li>
+        <li><b>Moliyaviy model grafigi:</b> 12 oylik daromad va xarajat dinamikasi CSS ustunlari orqali, ortiqcha grafik kutubxonasisiz.</li>
+        <li>Scroll bo‘yicha <code>IntersectionObserver</code> bilan bo‘limlarni ochish, sahifa progress indikatori va yopishib turuvchi sarlavha.</li>
+        <li>Mobil menyu <code>aria-expanded</code> bilan boshqariladi; sahifa planshet va telefonda to‘liq moslashadi.</li>
+        <li>Butun loyiha bitta HTML faylda, tashqi kutubxonalarsiz — tez yuklanadi va o‘rnatishsiz ishlaydi.</li>
+      </ul>
+    </div>
+
+    <div class="item">
+      <span class="item-head">
+        <span class="item-title">Nexus Studio — raqamli studiya uchun landing sahifa</span>
+        <span class="item-meta">Ko‘p bo‘limli sayt · HTML, CSS, JavaScript · 2026</span>
+      </span>
+      <ul>
+        <li>Xizmatlar, narxlar va aloqa bloklarini o‘z ichiga olgan ko‘p bo‘limli bir sahifali sayt.</li>
+        <li>CSS o‘zgaruvchilari asosida qorong‘i va yorug‘ mavzu almashtirgichi; tanlov saqlanadi.</li>
+        <li>Yagona rang va tipografika tizimi, gradient va soya effektlari bilan zamonaviy vizual uslub.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= TA'LIM ================= -->
+  <section>
+    <h2>Ta’lim</h2>
+    <div class="item">
+      <span class="item-head">
+        <span class="item-title">PDP Academy — Frontend dasturlash</span>
+        <span class="item-meta">Toshkent · [boshlanish oyi, yil] – [tugash oyi, yil] · bitiruvchi</span>
+      </span>
+      <ul>
+        <li>HTML, CSS va JavaScript asoslari; responsive layout va real loyiha ustida ishlash.</li>
+        <li>Bitiruv loyihasini mustaqil tayyorlash va uni himoya qilish (prezentatsiya, live demo, texnik savol-javob).</li>
+      </ul>
+    </div>
+    <div class="item">
+      <span class="item-head">
+        <span class="item-title">[Maktab / kollej / universitet nomi]</span>
+        <span class="item-meta">[Shahar] · [yil] – [yil]</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ================= TILLAR ================= -->
+  <section>
+    <h2>Tillar</h2>
+    <p class="kv">
+      <b>O‘zbek</b> — ona tili &nbsp;·&nbsp;
+      <b>Rus</b> — [daraja: o‘qish / yozish / so‘zlashuv] &nbsp;·&nbsp;
+      <b>Ingliz</b> — [daraja: texnik hujjatlarni o‘qish, A2/B1/B2]
+    </p>
+  </section>
+
+  <!-- ================= QO'SHIMCHA ================= -->
+  <section>
+    <h2>Qo‘shimcha</h2>
+    <ul>
+      <li>Loyihalar GitHub’da: [github.com/havola] · jonli demo: [havola]</li>
+      <li>LinkedIn va HeadHunter profillari to‘ldirilgan, CV yuklangan.</li>
+      <li>Qiziqishlar: mahsulot dizayni, shahar infratuzilmasi va transport yechimlari.</li>
+    </ul>
+  </section>
+
+</div>
+
+</body>
+</html>

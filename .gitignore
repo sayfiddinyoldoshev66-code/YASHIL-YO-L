@@ -1,0 +1,16 @@
+# Qo'shimcha fayllar
+.cloud-attachments/
+.freebuff/
+
+# Tizim fayllari
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Muhit va kalitlar
+.env
+.env.*
+!.env.example
+
+# Muhitlar
+node_modules/

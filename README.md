@@ -10,6 +10,8 @@ tarmog'i uchun bir sahifali mahsulot sayti. PDP Academy bitiruv loyihasi.
 | `yashil-yol.html` | Asosiy loyiha — 11 bo'limli bir sahifali sayt |
 | `index.html` | Nexus Studio — raqamli studiya uchun landing sahifa |
 | `cv.html` | Bitiruv uchun CV (A4, chop etishga tayyor) |
+| `slaydlar.html` | Himoya uchun 10 slaydli taqdimot (`←` `→` bilan o'tish, `P` — chop etish) |
+| `himoya-tayyorgarlik.md` | 10 daqiqalik nutq matni, demo ketma-ketligi, savol-javob tayyorgarligi |
 
 ## Sahifa tuzilmasi
 

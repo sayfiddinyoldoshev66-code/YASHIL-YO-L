@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YashilYo'l — bitiruv himoyasi slaydlari</title>
+<style>
+  :root {
+    --paper: #FAF7F1;
+    --card: #FFFFFF;
+    --ink: #15171C;
+    --ink-soft: #3A3D45;
+    --muted: #6E6C67;
+    --violet: #4636F0;
+    --violet-ink: #2C22A8;
+    --coral: #FF6B3D;
+    --mint: #0FA98F;
+    --line: rgba(21, 23, 28, .13);
+    --display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+    --sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Consolas, monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: #1b1a18;
+    font-family: var(--sans);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body { overflow: hidden; }
+
+  /* ============ SLAYD ============ */
+  .slide {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    padding: 6vh 8vw;
+    background: var(--paper);
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .slide.active { display: flex; }
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin: 0 0 18px;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(38px, 6.2vw, 82px);
+    line-height: 1.02;
+    letter-spacing: -1.5px;
+    margin: 0;
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(30px, 4.4vw, 58px);
+    line-height: 1.08;
+    letter-spacing: -1px;
+    margin: 0 0 26px;
+  }
+
+  .lead {
+    font-size: clamp(16px, 1.55vw, 22px);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 18px 0 0;
+  }
+
+  /* ============ TITLE SLAYD ============ */
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 34px;
+  }
+
+  .brand i {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--mint);
+    display: block;
+  }
+
+  .title-meta {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    margin-top: 46px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .title-meta b { color: var(--ink); display: block; font-weight: 600; margin-bottom: 3px; }
+
+  /* ============ GRID / KARTALAR ============ */
+  .grid {
+    display: grid;
+    gap: 14px;
+    margin-top: 8px;
+  }
+
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+
+  .card .num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--violet);
+    letter-spacing: 1.4px;
+  }
+
+  .card h3 {
+    font-size: 17px;
+    margin: 8px 0 6px;
+    letter-spacing: -.2px;
+  }
+
+  .card p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  /* ============ STAT ============ */
+  .stat {
+    font-family: var(--display);
+    font-size: clamp(34px, 4vw, 52px);
+    line-height: 1;
+    letter-spacing: -1px;
+    color: var(--violet-ink);
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* ============ TABLE ============ */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    margin-top: 6px;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  th {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  td b { font-weight: 600; }
+  .win { color: var(--mint); font-weight: 600; }
+
+  /* ============ FOOTER ============ */
+  .foot {
+    position: fixed;
+    left: 8vw;
+    right: 8vw;
+    bottom: 3.2vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    color: #A6A29A;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+
+  .dots { display: flex; gap: 6px; }
+  .dots i {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #D8D3C8;
+    display: block;
+  }
+  .dots i.on { background: var(--violet); }
+
+  /* ============ HINT ============ */
+  .hint {
+    position: fixed;
+    right: 14px;
+    top: 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #8C8880;
+    background: rgba(250, 247, 241, .8);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 6px 12px;
+    transition: opacity .4s;
+  }
+
+  .hint.gone { opacity: 0; }
+
+  /* ============ CHOP ETISH: har slayd — alohida sahifa ============ */
+  @page { size: A4 landscape; margin: 0; }
+
+  @media print {
+    body { overflow: visible; background: #fff; }
+    .hint, .foot { display: none; }
+    .slide {
+      display: flex !important;
+      width: 297mm;
+      height: 210mm;
+      padding: 18mm 22mm;
+      break-after: page;
+      page-break-after: always;
+    }
+    .slide:last-of-type { break-after: auto; page-break-after: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide active">
+  <div class="brand"><i></i> PDP Academy · Bitiruv himoyasi · 2026</div>
+  <h1>YashilYo‘l</h1>
+  <p class="lead">Bekatdan eshikgacha 7 daqiqa — QR orqali mikrotransport ijarasi tarmog‘i.</p>
+  <div class="title-meta">
+    <div><b>Muallif</b> [ISM FAMILIYA]</div>
+    <div><b>Yo‘nalish</b> Frontend dasturlash</div>
+    <div><b>Loyiha turi</b> Bir sahifali mahsulot sayti</div>
+    <div><b>Hamkor</b> HTML · CSS · JavaScript</div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <p class="kicker">01 — Muammo</p>
+  <h2>Jamoat transporti sizni<br>eshikgacha olib bormaydi</h2>
+  <div class="grid g3">
+    <div class="card">
+      <span class="num">A</span>
+      <h3>Oxirgi kilometr</h3>
+      <p>Metro va avtobusdan tushgandan keyin manzilgacha 1–2 km piyoda qoladi. Bu har kuni takrorlanadi.</p>
+    </div>
+    <div class="card">
+      <span class="num">B</span>
+      <h3>Taxi qisqa masofaga qimmat</h3>
+      <p>2–3 km uchun ham minimal tarif to‘lanadi — kuniga ikki marta bu sezilarli xarajat.</p>
+    </div>
+    <div class="card">
+      <span class="num">C</span>
+      <h3>Vaqt qaytmaydi</h3>
+      <p>Piyoda 30 daqiqa, skuterda 7 daqiqa. Farq — kuniga bir soatdan ko‘proq vaqt.</p>
+    </div>
+  </div>
+  <p class="lead">Muammo transportda emas — <b>transport va manzil orasidagi masofada</b>.</p>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <p class="kicker">02 — Yechim</p>
+  <h2>To‘rt qadam, bitta ilova</h2>
+  <div class="grid g4">
+    <div class="card">
+      <span class="num">01</span>
+      <h3>Topish</h3>
+      <p>Eng yaqin stansiya va bo‘sh transportlar soni xaritada ko‘rinadi.</p>
+    </div>
+    <div class="card">
+      <span class="num">02</span>
+      <h3>Ochish</h3>
+      <p>QR kodni skanerlash — qulf ochiladi, hisob avtomatik boshlanadi.</p>
+    </div>
+    <div class="card">
+      <span class="num">03</span>
+      <h3>Yurish</h3>
+      <p>Belgilangan tezlikda, GPS nazorati ostida manzilgacha borish.</p>
+    </div>
+    <div class="card">
+      <span class="num">04</span>
+      <h3>Qaytarish</h3>
+      <p>Istalgan stansiyaga qo‘yish — hisob avtomatik yopiladi.</p>
+    </div>
+  </div>
+  <p class="lead">Ro‘yxatdan o‘tish, karta va birinchi safar — jami <b>7 daqiqa</b>.</p>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <p class="kicker">03 — Live demo</p>
+  <h2>Loyiha qanday ishlaydi</h2>
+  <div class="grid g3">
+    <div class="card">
+      <h3>Interaktiv stansiya xaritasi</h3>
+      <p>Kursor stansiya ustiga kelganda bo‘sh transportlar soni ko‘rsatiladi.</p>
+    </div>
+    <div class="card">
+      <h3>Narx kalkulyatori</h3>
+      <p>Masofa slayderini surish — vaqt, narx va taksiga nisbatan tejamkorlik jonli hisoblanadi.</p>
+    </div>
+    <div class="card">
+      <h3>Moliyaviy model</h3>
+      <p>12 oylik daromad va xarajat dinamikasi — grafik kutubxonasisiz, faqat CSS bilan.</p>
+    </div>
+  </div>
+  <p class="lead">Demo davomida: slayderni suring → xarita ustida yuring → grafikni ko‘rsating.</p>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <p class="kicker">04 — Iqtisod</p>
+  <h2>Qancha yursangiz, shunga qarab</h2>
+  <table>
+    <thead>
+      <tr><th>Variant</th><th>Narx</th><th>Vaqt</th><th>Izoh</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>YashilYo‘l</b></td><td><b>1 500 so‘m + 250 so‘m/daqiqa</b></td><td class="win">~7 daqiqa</td><td>Eng tez va arzon</td></tr>
+      <tr><td>Taxi</td><td>8 000 so‘m + 5 000 so‘m/km (min. 12 000)</td><td>~10 daqiqa</td><td>Kutish vaqt bilan uzunroq</td></tr>
+      <tr><td>Piyoda</td><td>0 so‘m</td><td>~30 daqiqa</td><td>Bepul, lekin vaqt qaytmaydi</td></tr>
+    </tbody>
+  </table>
+  <p class="lead">3 km masofada: YashilYo‘l ~5 000 so‘m, taxi ~25 000 so‘m — <b>5 barobar farq</b>.</p>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <p class="kicker">05 — Moliyaviy model</p>
+  <h2>Pul qayerdan keladi, xarajat nima</h2>
+  <div class="grid g3">
+    <div class="card">
+      <div class="stat">41 mln</div>
+      <div class="stat-label">12-oydagi oylik daromad (so‘m)</div>
+    </div>
+    <div class="card">
+      <div class="stat">9 mln</div>
+      <div class="stat-label">12-oydagi oylik xarajat (so‘m)</div>
+    </div>
+    <div class="card">
+      <div class="stat">4-oy</div>
+      <div class="stat-label">Oylik foyda ijobiy bo‘ladigan davr</div>
+    </div>
+  </div>
+  <p class="lead">Daromad: safar to‘lovlari va oylik obuna. Xarajat: texnik xizmat, quvvatlash, sug‘urta va stansiya ijarsi. Model saytda — <b>jonli grafik</b> sifatida.</p>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <p class="kicker">06 — Xavfsizlik</p>
+  <h2>Har bir safar nazorat ostida</h2>
+  <div class="grid g4">
+    <div class="card">
+      <h3>Tezlik cheklovi</h3>
+      <p>Shahar ichida 15–20 km/soat bilan cheklangan.</p>
+    </div>
+    <div class="card">
+      <h3>GPS kuzatuv</h3>
+      <p>Transport yo‘qolsa yoki noto‘g‘ri joyga qo‘yilsa, tizim darhol ko‘rsatadi.</p>
+    </div>
+    <div class="card">
+      <h3>Kunlik texnik xizmat</h3>
+      <p>Har bir transport har kuni tekshiriladi, batareya zaxirasi nazoratda.</p>
+    </div>
+    <div class="card">
+      <h3>Sug‘urta qamrovi</h3>
+      <p>Safar davomida foydalanuvchi sug‘urta bilan qoplanadi.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <p class="kicker">07 — Texnik jihatlar</p>
+  <h2>Arxitektura va texnologiyalar</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3>Nega tashqi kutubxonasiz?</h3>
+      <p>Loyiha bitta HTML fayl — internet bo‘lmasa ham ishlaydi, yuklanish tez, kichik hajm.</p>
+    </div>
+    <div class="card">
+      <h3>JavaScript qayerda ishlatilgan?</h3>
+      <p>Xaritani dinamik qurish, narx hisoblash (<span style="font-family:var(--mono);font-size:13px">Intl.NumberFormat</span>), scroll-reveal (<span style="font-family:var(--mono);font-size:13px">IntersectionObserver</span>), mobil menyu.</p>
+    </div>
+    <div class="card">
+      <h3>CSS yondashuvi</h3>
+      <p>Flexbox va Grid, custom properties bilan yagona dizayn tizimi, media queries bilan to‘liq responsive.</p>
+    </div>
+    <div class="card">
+      <h3>Mavjudlik (accessibility)</h3>
+      <p>Semantik HTML, <span style="font-family:var(--mono);font-size:13px">aria-expanded</span> bilan boshqariladigan menyu, kontrastli ranglar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <p class="kicker">08 — Reja</p>
+  <h2>Uch tuman pilotidan butun shaharga</h2>
+  <div class="grid g3">
+    <div class="card">
+      <span class="num">1-bosqich</span>
+      <h3>Pilot</h3>
+      <p>3 tuman, 48 stansiya, 1 240 transport. Talabalar va ofis xodimlari bilan sinov.</p>
+    </div>
+    <div class="card">
+      <span class="num">2-bosqich</span>
+      <h3>Kengaytirish</h3>
+      <p>Metro bekatlari va universitetlar atrofida tarmoqni ko‘paytirish, ilovani chiqarish.</p>
+    </div>
+    <div class="card">
+      <span class="num">3-bosqich</span>
+      <h3>Shahar miqyosi</h3>
+      <p>Barcha tumanlar, hamkorlikdagi tariflar, biznes uchun korporativ paketlar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <p class="kicker">09 — Xulosa</p>
+  <h2>Nega bu loyiha qimmatli?</h2>
+  <div class="grid g3">
+    <div class="card">
+      <div class="stat">7 daq</div>
+      <div class="stat-label">Bekatdan eshigacha</div>
+    </div>
+    <div class="card">
+      <div class="stat">5×</div>
+      <div class="stat-label">Taksidan arzon</div>
+    </div>
+    <div class="card">
+      <div class="stat">1 fayl</div>
+      <div class="stat-label">Kutubxonasiz, tez ishlaydigan sayt</div>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:34px">
+    Rahmat! Savollaringizni javob berishga tayyorman.<br>
+    <span style="color:var(--muted);font-size:15px">Loyiha kodi: github.com/sayfiddinyoldoshev66-code/YASHIL-YO-L</span>
+  </p>
+</section>
+
+<div class="hint">← → bilan o‘tish · <b>P</b> — chop etish</div>
+
+<div class="foot">
+  <span>YashilYo‘l · PDP Academy 2026</span>
+  <span class="dots" id="dots"></span>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var dots = document.getElementById("dots");
+  var hint = document.querySelector(".hint");
+  var i = 0;
+
+  slides.forEach(function () {
+    dots.appendChild(document.createElement("i"));
+  });
+  var dotEls = Array.prototype.slice.call(dots.children);
+
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, k) { s.classList.toggle("active", k === i); });
+    dotEls.forEach(function (d, k) { d.classList.toggle("on", k === i); });
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " " || e.key === "PageDown") {
+      e.preventDefault(); show(i + 1);
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp" || e.key === "PageUp") {
+      e.preventDefault(); show(i - 1);
+    } else if (e.key === "Home") {
+      show(0);
+    } else if (e.key === "End") {
+      show(slides.length - 1);
+    } else if (e.key === "p" || e.key === "P") {
+      window.print();
+    }
+    hint.classList.add("gone");
+  });
+
+  document.addEventListener("click", function (e) {
+    if (e.clientX > window.innerWidth / 2) { show(i + 1); } else { show(i - 1); }
+    hint.classList.add("gone");
+  });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>

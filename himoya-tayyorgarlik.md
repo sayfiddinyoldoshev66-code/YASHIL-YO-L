@@ -18,7 +18,7 @@ umumiy ballning **kamida 80%** i kerak.
 | 6 | “Sotuv” | 1 daq | 130–140 |
 | 7 | Xulosa va minnatdorchilik | 1 daq | 100–120 |
 
-Nutq tezligi: daqiqada ~135 so‘z. Har qismni taymer bilan 3 marta o‘qib chiqing.
+Nutq tezligi: daqiqada ~135 so‘z. Jami ~1 250 so‘z — demo harakatlari va pauzalar bilan birga 10 daqiqaga mo‘ljallangan. Har qismni taymer bilan 3 marta o‘qib chiqing.
 
 ---
 
@@ -37,6 +37,10 @@ Nutq tezligi: daqiqada ~135 so‘z. Har qismni taymer bilan 3 marta o‘qib chiq
 > Kurs davomida HTML va CSS asoslaridan boshlab, JavaScript, sahifa arxitekturasi, responsive
 > layout va loyihani noldan oxirigacha yetkazishni o‘rgandim. Eng katta natijam — bugun
 > ko‘rsatadigan bitiruv loyiham.
+>
+> Frontendni tanlaganim ham shundan: bu — foydalanuvchi bevosita ko‘radigan va ishlatadigan
+> qism. Kod to‘g‘ri yozilsa, natijani darhol ko‘rasiz, xatoni ham darhol topasiz. Menga shu
+> tez qaytariladigan aloqa yoqadi — shuning uchun o‘zimni shu yo‘nalishda ko‘ryapman.
 
 ### 2-qism · Muammo (1 daqiqa)
 
@@ -54,6 +58,10 @@ Nutq tezligi: daqiqada ~135 so‘z. Har qismni taymer bilan 3 marta o‘qib chiq
 > Uchinchisi — **vaqt**. Piyoda 30 daqiqa, skuterda 7 daqiqa. Bu farq kuniga bir soatdan ko‘p.
 >
 > Ya’ni muammo transportning o‘zida emas — **transport va manzil orasidagi masofada**.
+>
+> Bu muammoni har kuni talabalar, ofis xodimlari va metroda yuradigan yuz minglab odam boshdan
+> kechiradi. Men ham shularning biriman — shuning uchun loyihani real ehtiyojdan boshladim,
+> taxminiy g‘oyadan emas.
 
 ### 3-qism · Prezentatsiya (2–3 daqiqa)
 
@@ -71,6 +79,15 @@ Nutq tezligi: daqiqada ~135 so‘z. Har qismni taymer bilan 3 marta o‘qib chiq
 > 3 kilometrlik safar taxminan 5 000 so‘m — taxi bilan bir xil masofa 25 000 so‘m atrofida.
 > Ya’ni 5 barobar arzon.
 >
+> **Kimga kerak?** Avvalo metro va avtobusdan foydalanadigan, lekin manzili bekatdan uzoq
+> bo‘lgan odamlarga: talabalar, ofis xodimlari, universitet va biznes markazlari atrofida
+> ishlaydiganlar. Ikkinchi guruh — shahar markazida qisqa masofaga harakatlanadigan sayyohlar.
+>
+> **Raqobatchilardan farqimiz:** taxi qisqa masofada qimmat va kutishni talab qiladi; piyoda
+> bepul, lekin sekin; mavjud skuter xizmatlari esa asosan shahar markazida tarqoq joylashgan.
+> Bizning farqimiz — stansiyalarni aynan **metro chiqishlariga** bog‘lash: odam transportdan
+> tushgan joyda transport turibdi.
+
 > **Pul qayerdan keladi:** safar to‘lovlari va oylik obuna. **Xarajat:** texnik xizmat,
 > quvvatlash, sug‘urta va stansiya ijarsi. Moliyaviy modelda 4-oydan boshlab oylik foyda
 > ijobiy bo‘ladi, 12-oyda oylik daromad 41 million so‘mga chiqadi.
@@ -88,11 +105,27 @@ Nutq tezligi: daqiqada ~135 so‘z. Har qismni taymer bilan 3 marta o‘qib chiq
 
 Ekranda `yashil-yol.html` ochilgan bo‘lsin. Ketma-ketlik:
 
-1. **Yuqori qism** — sarlavha va progress indikatori: “sahifa qanday savolga javob berishini bir qarashda ko‘rish mumkin”.
-2. **Stansiya xaritasi** — kursorni nuqta ustiga olib boring: *“ko‘rdingizmi, bo‘sh transportlar soni darhol chiqadi — bu JavaScript bilan dinamik qurilgan to‘r”*.
-3. **Narx kalkulyatori** — slayderni 3 km ga suring: *“vaqt, narx va taksiga nisbatan tejamkorlik bir vaqtda hisoblanadi. Raqamlar `Intl.NumberFormat` bilan formatlanadi”*.
-4. **Moliya grafigi** — *“12 oylik daromad va xarajat — bitta ham grafik kutubxonasisiz, oddiy CSS ustunlari”*.
-5. **Mobil ko‘rinish** — oynani toraytiring yoki telefonni ko‘rsating: *“telefonda menyu va barcha bloklar moslashadi”*.
+1. **Yuqori qism** — sarlavha va progress indikatori.
+   > “Ekranda ko‘rganingiz — saytning birinchi ekrani. Mahsulot bir jumlada aytilgan:
+   > bekatdan eshigingacha 7 daqiqa. Pastdagi ingichka chiziq — sahifa bo‘ylab progress.”
+
+2. **Stansiya xaritasi** — kursorni nuqta ustiga olib boring.
+   > “Bu to‘r JavaScript bilan dinamik qurilgan: kataklar yaratiladi, stansiyalar shu to‘rga
+   > taqsimlanadi. Kursorni olib keling — bo‘sh transportlar soni darhol chiqadi. Foydalanuvchi
+   > uchun bu eng muhim ma’lumot: yaqin atrofda transport bormi-yo‘qmi.”
+
+3. **Narx kalkulyatori** — slayderni 3 km ga suring.
+   > “Masofani tanlaydi — vaqt, narx va taksiga nisbatan tejamkorlik bir vaqtda hisoblanadi.
+   > Raqamlar `Intl.NumberFormat` bilan formatlanadi: 5 000 deb chiqadi, 5000 deb emas.
+   > Pastdagi ustunlar uch variantni yonma-yon ko‘rsatadi: skuter, taxi, piyoda.”
+
+4. **Moliya grafigi** — pastga suring.
+   > “12 oylik daromad va xarajat dinamikasi. Bitta ham grafik kutubxonasi ishlatilmagan —
+   > faqat CSS ustunlari va foizlarda berilgan balandliklar.”
+
+5. **Mobil ko‘rinish** — oynani toraytiring yoki telefonni ko‘rsating.
+   > “Telefonda menyu burger tugmaga o‘tadi, ustunlar bir ustunga tushadi. Sahifa qaysi
+   > qurilmada ochilsa ham buzilmaydi.”
 
 > Demo’da hech narsa “yuklanmayapti” holatida qolmasin — barcha bloklar lokal, tarmoqqa
 > bog‘liq emas. Internet o‘chirilgan holda ham tekshirib qo‘ying.
@@ -111,6 +144,10 @@ Ekranda `yashil-yol.html` ochilgan bo‘lsin. Ketma-ketlik:
 > taqsimlash va ular ustida ishlashni to‘g‘ri tashkil qilish. Uni massiv va indeks hisoblash
 > bilan yechdim: har bir stansiya o‘z katagiga joylashadi, ustiga kelinganda ma’lumot shu
 > katakdan olinadi.
+>
+> **Kod tuzilmasi:** hamma narsa bitta faylda, lekin bo‘limlarga ajratilgan va izohlangan —
+> scroll, menyu, xarita, kalkulyator, grafik. Har bir blok mustaqil ishlaydi: biri buzilsa
+> boshqalari to‘xtamaydi.
 
 ### 6-qism · “Sotuv” (1 daqiqa)
 
@@ -128,6 +165,10 @@ Ekranda `yashil-yol.html` ochilgan bo‘lsin. Ketma-ketlik:
 >
 > Menga ish beradigan jamoa shuni oladi: muammoni tushunadigan, mahsulot mantig‘ini
 > o‘ylaydigan va uni toza kod bilan yetkazib beradigan junior dasturchi.
+>
+> Va yana bir jihat: bu loyiha mening **mustaqil ishlash qobiliyatimni** ko‘rsatadi. G‘oyani
+> o‘ylab topishdan tortib, tarif modelini hisoblash, dizaynni yasash va kodni yozishgacha —
+> hammasini o‘zim qildim. Jamoada ham shunday ishlayman: vazifani oxirigacha yetkazaman.
 
 ### 7-qism · Xulosa (1 daqiqa)
 
@@ -136,6 +177,9 @@ Ekranda `yashil-yol.html` ochilgan bo‘lsin. Ketma-ketlik:
 >
 > Men uchun bu loyiha kurs davomida o‘rgangan hamma narsani bitta mahsulotga yig‘ish imkoniyati
 > bo‘ldi: dizayn, kod, mahsulot mantig‘i va uni himoya qilish.
+>
+> Keyingi qadam sifatida backend va haqiqiy xarita integratsiyasini qo‘shib, loyihani
+> ishlaydigan xizmatga aylantirishni rejalashtiryapman — bu mening keyingi o‘quv maqsadim.
 >
 > PDP Academy jamoasiga, ustozlarimga va guruhdoshlarimga katta rahmat — bilim bilan birga,
 > ishni oxirigacha yetkazish odatini o‘rgatganingiz uchun.

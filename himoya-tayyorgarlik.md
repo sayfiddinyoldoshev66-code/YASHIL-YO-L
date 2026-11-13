@@ -18,7 +18,7 @@ umumiy ballning **kamida 80%** i kerak.
 | 6 | “Sotuv” | 1 daq | 130–140 |
 | 7 | Xulosa va minnatdorchilik | 1 daq | 100–120 |
 
-Nutq tezligi: daqiqada ~135 so‘z. Jami ~1 250 so‘z — demo harakatlari va pauzalar bilan birga 10 daqiqaga mo‘ljallangan. Har qismni taymer bilan 3 marta o‘qib chiqing.
+Nutq tezligi: daqiqada ~135 so‘z. Matn jami **936 so‘z** — bu ~7 daqiqa sof nutq; sekin sur’at, pauzalar va demo paytidagi harakatlar bilan 9–10 daqiqa chiqadi. Har qismni taymer bilan 3 marta o‘qib chiqing va umumiy vaqt 10 daqiqadan oshmasin.
 
 ---
 

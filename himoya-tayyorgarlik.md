@@ -28,7 +28,7 @@ Nutq tezligi: daqiqada ~135 so‘z. Matn jami **936 so‘z** — bu ~7 daqiqa so
 
 > Assalomu alaykum, hurmatli komissiya a’zolari va mehmonlar.
 >
-> Men — **[ISM FAMILIYA]**, PDP Academy’ning frontend dasturlash yo‘nalishi bitiruvchisiman.
+> Men — **Muhammadjon Yo‘ldoshev**, PDP Academy’ning frontend dasturlash yo‘nalishi bitiruvchisiman.
 >
 > ITni tanlaganimning sababi oddiy: men har kuni ko‘radigan muammoni o‘z qo‘lim bilan
 > yechadigan kasbni xohladim. Dasturlash menga shu imkoniyatni berdi — g‘oyani bir necha kunda
